@@ -7,14 +7,19 @@ $database = new db(getenv("DB_HOST"), getenv("DB_USER"), getenv("DB_PASSWORD"), 
 $db = $database->getConnection();
 $sqlQuery = new Sql($db);
 
-$result = $sqlQuery->getTable($_GET['id']);
+$result = $sqlQuery->GetReservation($_GET['id']);
 
 $json = [];
 
 
 foreach ($result as $table) {
     array_push($json, $table['id']);
-    array_push($json, $table['stoelen']);
+    array_push($json, $table['reservation_table']);
+    array_push($json, $table['customer_id']);
+    array_push($json, $table['date']);
+    array_push($json, $table['time']);
+    array_push($json, $table['amount']);
+    array_push($json, $table['used']);
 }
 
 echo json_encode($json);

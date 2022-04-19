@@ -8,24 +8,25 @@ class db
     private $dbName;
     public $conn;
 
-    public function __construct($host, $user, $password, $dbName)
+    public function __construct()
     {
-        $this->host = $host;
-        $this->user = $user;
-        $this->password = $password;
-        $this->dbName = $dbName;
+        $this->host = "localhost";
+        $this->user = "root";
+        $this->password = "";
+        $this->dbName = "restauranto";
     }
 
     public function  getConnection() {
         $this->conn = null;
 
-        try {
-            $dsn = 'mysql:host='.$this->host.';dbname='.$this->dbName;
-            $this->conn = new PDO($dsn,$this->user, $this->password);
-        } catch (PDOException $exception) {
-            return array("error" => 1, "errormessage" => $exception->getMessage());
-        }
 
+        // Create connection
+        $this->conn = new mysqli($this->host, $this->user, $this->password,$this->dbName);
+
+        // Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
         return $this->conn;
     }
 }

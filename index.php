@@ -3,16 +3,20 @@ include 'includes/autoloader.php';
 
 (new EnvReader(__DIR__ . '/.env'))->load();
 
-$database = new db(getenv("DB_HOST"), getenv("DB_USER"), getenv("DB_PASSWORD"), getenv("DB_NAME"));
+$database = new db();
 $db = $database->getConnection();
 $sqlQuery = new sql($db);
 
 $request = $_SERVER['REQUEST_URI'];
-
-switch ($request) {
+$url = explode('/', $request);
+$getExtension = explode('?', $request);
+switch ($url[1]) {
     case '':
     case '/' :
         require __DIR__ . '/webpage/view/index.php';
+        break;
+    case 'bestelling' . '?' . $getExtension[1]:
+        require __DIR__ . '/webpage/view/order.php';
         break;
     default:
         http_response_code(404);
