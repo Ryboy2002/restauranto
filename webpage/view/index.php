@@ -356,8 +356,14 @@
             var result = JSON.parse(response);
             $("#container-reservations").html("");
             result.forEach(element => $("#container-reservations").append(element));
-            $('#container-reservations tr').click(function(event) {
-                window.location.href = "/bestelling?id=" + this.cells[0].innerText;
+            $('#container-reservations tr td').click(function(event) {
+                if (this.innerHTML.includes("<button"))
+                {
+
+                } else
+                {
+                    window.location.href = "/bestelling?id=" +this.dataset.id.toString();
+                }
             });
         });
 

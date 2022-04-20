@@ -1,8 +1,6 @@
 <?php
 require "../includes/autoloader.php";
 
-(new EnvReader($_SERVER['DOCUMENT_ROOT'] . '/.env'))->load();
-
 $database = new db();
 $db = $database->getConnection();
 $sqlQuery = new sql($db);

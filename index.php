@@ -1,8 +1,6 @@
 <?php
 include 'includes/autoloader.php';
 
-(new EnvReader(__DIR__ . '/.env'))->load();
-
 $database = new db();
 $db = $database->getConnection();
 $sqlQuery = new sql($db);
